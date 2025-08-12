@@ -6,7 +6,19 @@
 </head>
 
 <body>
-	<div>Hello World</div>
+	<div id="app">
+		<h1>{{ message }}</h1>
+	</div>
 </body>
+<script>
+	const { createApp } = Vue;
 
+	createApp({
+		setup() {
+			return {
+				message: "Hello Vue!"
+			}
+		}
+	}).mount('#app')
+</script>
 </html>
