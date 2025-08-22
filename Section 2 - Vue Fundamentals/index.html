@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
 
-<head>
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</head>
+  <body>
+    <div id="app">
+      <h1>{{ message }}</h1>
+      <p>Your lucky number is: {{ luckyNumber }}</p>
+			<p>Lucky numbers list: {{ luckyNumbers[0] }}</p>
+			<p>Employee: {{ employee.name }} is {{employee.age}} years old.</p>
+    </div>
+  </body>
+  <script>
+    const { createApp } = Vue;
 
-<body>
-	<div id="app">
-		<h1>{{ message }}</h1>
-		<p>Your lucky number is: {{ luckyNumber }}</p>
-	</div>
-</body>
-<script>
-	const { createApp } = Vue;
-
-	createApp({
-		setup() {
-
-			const message = "Hello Vue!";
-			const luckyNumber = Math.floor(Math.random() * 100) + 1;
-			return {
-				message,
-				luckyNumber
-			}
-		}
-	}).mount('#app')
-</script>
+    createApp({
+      setup() {
+        const message = "Hello Vue!";
+        const luckyNumber = Math.floor(Math.random() * 100) + 1;
+        const luckyNumbers = [3, 7, 9, 11];
+				const employee = {
+					name: "John",
+					age: 30,
+					salary: 50000
+				}
+        return {
+          message,
+          luckyNumber,
+					luckyNumbers,
+					employee
+        };
+      },
+    }).mount("#app");
+  </script>
 </html>
