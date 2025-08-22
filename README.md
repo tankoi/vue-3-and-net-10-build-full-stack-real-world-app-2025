@@ -12,3 +12,29 @@
 
 #### VueJS CDN
 - ```<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>```
+
+## Section 3: Reactivity in Vue
+
+### 3.20 Reactive in Vue
+
+#### Ref and Reactive
+
+- Use ref for primitive types and reactive for objects to make them dynamic.
+
+```js
+let luckyNumber = ref(6);
+
+const employee = reactive({
+	name: "John",
+    age: 30,
+    salary: 50000,
+});
+```
+
+- You can also use ref for objects but then you have to add .value to the object name to set its properties value.
+
+```js
+employee.value.age = 40;
+```
+
+####
