@@ -6,7 +6,7 @@
 
   <body>
     <div id="app">
-      <h1>{{message}}</h1>
+      <h1>{{getMessage()}}</h1>
       <p>Your lucky number is: {{luckyNumber}}</p>
 			<p>Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.</p>
 			<p>Random number from 1-10: {{getRandomLuckyNumber()}}</p>
@@ -31,11 +31,15 @@
 					return Math.floor(Math.random()*10) + 1
 				}
 
+				function getMessage() {
+					return message.toUpperCase()
+				}
+
         return {
-          message,
           luckyNumber,
 					employee,
-					getRandomLuckyNumber
+					getRandomLuckyNumber,
+					getMessage,
         };
       },
     }).mount("#app");
