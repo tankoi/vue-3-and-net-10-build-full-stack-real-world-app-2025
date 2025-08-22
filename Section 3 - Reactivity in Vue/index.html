@@ -11,7 +11,7 @@
       <p>
         Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.
       </p>
-      <p>Random number from 1-10: {{getRandomLuckyNumber()}}</p>
+      <p>{{updateLuckyNumber()}}</p>
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
     </div>
   </body>
@@ -29,9 +29,10 @@
           salary: 50000,
         };
 
-        function getRandomLuckyNumber() {
-          luckyNumber.value = Math.floor(Math.random() * 10) + 1;
-          return Math.floor(Math.random() * 10) + 1;
+        function updateLuckyNumber() {
+					setTimeout(() => {
+						luckyNumber.value = 77;
+					}, 2000)          
         }
 
         function getMessage() {
@@ -41,7 +42,7 @@
         return {
           luckyNumber,
           employee,
-          getRandomLuckyNumber,
+          updateLuckyNumber,
           getMessage,
         };
       },
