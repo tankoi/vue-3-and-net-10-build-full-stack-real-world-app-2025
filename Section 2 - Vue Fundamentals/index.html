@@ -8,7 +8,8 @@
     <div id="app">
       <h1>{{ message }}</h1>
       <p>Your lucky number is: {{ luckyNumber }}</p>
-			<p>Lucky numbers list: {{ luckyNumbers[0] }}</p>
+			<p>Lucky number is an {{ luckyNumber % 2 === 0 ? "even number" : "odd number" }}.</p>
+			<p>Random number from 1-10: {{ Math.floor(Math.random()*10) + 1}}</p>
 			<p>Employee: {{ employee.name }} is {{employee.age}} years old.</p>
     </div>
   </body>
