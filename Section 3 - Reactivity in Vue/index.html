@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>{{getMessage()}}</h1>
+      <p>Your lucky number is: {{luckyNumber}}</p>
+      <p>
+        Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.
+      </p>
+      <p>Random number from 1-10: {{getRandomLuckyNumber()}}</p>
+      <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
+    </div>
+  </body>
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const message = "Hello Vue!";
+        let luckyNumber = ref(6);
+
+        const employee = {
+          name: "John",
+          age: 30,
+          salary: 50000,
+        };
+
+        function getRandomLuckyNumber() {
+          luckyNumber.value = Math.floor(Math.random() * 10) + 1;
+          return Math.floor(Math.random() * 10) + 1;
+        }
+
+        function getMessage() {
+          return message.toUpperCase();
+        }
+
+        return {
+          luckyNumber,
+          employee,
+          getRandomLuckyNumber,
+          getMessage,
+        };
+      },
+    }).mount("#app");
+  </script>
+</html>
