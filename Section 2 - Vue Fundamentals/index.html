@@ -8,6 +8,7 @@
 <body>
 	<div id="app">
 		<h1>{{ message }}</h1>
+		<p>Your lucky number is: {{ luckyNumber }}</p>
 	</div>
 </body>
 <script>
@@ -15,8 +16,12 @@
 
 	createApp({
 		setup() {
+
+			const message = "Hello Vue!";
+			const luckyNumber = Math.floor(Math.random() * 100) + 1;
 			return {
-				message: "Hello Vue!"
+				message,
+				luckyNumber
 			}
 		}
 	}).mount('#app')
