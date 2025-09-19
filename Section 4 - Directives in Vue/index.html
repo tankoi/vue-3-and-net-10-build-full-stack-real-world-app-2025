@@ -6,14 +6,7 @@
 
   <body>
     <div id="app">
-      <span v-html="getMessage()"></span>
-      <p>Your lucky number is: {{luckyNumber}}</p>
-	  <p v-once>Render Once lucky number is: {{luckyNumber}}</p>
-	  <a v-bind:href="blogUrl">Visit blog</a>
-      <p>
-        Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.
-      </p>
-      <p>{{updateLuckyNumber()}}</p>
+			<h1>{{message}}</h1>
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
       <p>His salary: {{employee.salary}}</p>
     </div>
@@ -24,32 +17,20 @@
     createApp({
       setup() {
         const message = "Hello Vue!";
-        let luckyNumber = ref(6);
-		const blogUrl = "https://dotnetmastery.com";
+        let luckyNumbers = [3, 5, 7, 11, 15]
 
         const employee = reactive({
           name: "John",
           age: 30,
           salary: 50000,
+					hasCorporateCard: true,
+					spendingLimit: 10000,
+					yearsWithCompany: 5,
         });
 
-        function updateLuckyNumber() {
-          setTimeout(() => {
-            luckyNumber.value = 77;
-            employee.salary = 60000;
-          }, 2000);
-        }
-
-        function getMessage() {
-          return `<h1><u>${message}</u></h1>`;
-        }
-
         return {
-          luckyNumber,
-		  blogUrl,
-          employee,
-          updateLuckyNumber,
-          getMessage,
+					message,
+          employee,        
         };
       },
     }).mount("#app");
