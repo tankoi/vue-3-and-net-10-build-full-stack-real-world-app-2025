@@ -9,6 +9,7 @@
       <span v-html="getMessage()"></span>
       <p>Your lucky number is: {{luckyNumber}}</p>
 	  <p v-once>Render Once lucky number is: {{luckyNumber}}</p>
+	  <a v-bind:href="blogUrl">Visit blog</a>
       <p>
         Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.
       </p>
@@ -24,6 +25,7 @@
       setup() {
         const message = "Hello Vue!";
         let luckyNumber = ref(6);
+		const blogUrl = "https://dotnetmastery.com";
 
         const employee = reactive({
           name: "John",
@@ -44,6 +46,7 @@
 
         return {
           luckyNumber,
+		  blogUrl,
           employee,
           updateLuckyNumber,
           getMessage,
