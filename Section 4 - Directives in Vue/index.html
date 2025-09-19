@@ -18,11 +18,17 @@
 					<span>{{index + 1}} - {{project.project}} timeline is - {{project.timeline}}</span>
 				</li>
 			</ul>
+			<hr>
+			<ul>
+				<li v-for="(value, key) in employee">
+					<span>{{key}}: {{value}}</span>
+				</li>
+			</ul>
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
-      <p>His salary: {{employee.salary}}</p>
-			
+      <p>His salary: {{employee.salary}}</p>			
     </div>
   </body>
+
   <script>
     const { createApp, ref, reactive } = Vue;
 
