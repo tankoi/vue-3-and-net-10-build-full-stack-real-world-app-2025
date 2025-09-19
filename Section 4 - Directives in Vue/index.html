@@ -8,6 +8,7 @@
     <div id="app">
       <span v-html="getMessage()"></span>
       <p>Your lucky number is: {{luckyNumber}}</p>
+	  <p v-once>Render Once lucky number is: {{luckyNumber}}</p>
       <p>
         Lucky number is an {{luckyNumber % 2 === 0 ? "even number" : "odd number"}}.
       </p>
