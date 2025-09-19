@@ -14,11 +14,13 @@
 			<hr/>
 			<p>Projects in Pipeline</p>
 			<ul>
-				<li v-for="(project, index) in employee.projects">
+				<li v-for="(project, index) in employee.projects" :key="project.project">
 					<span>{{index + 1}} - {{project.project}} timeline is - {{project.timeline}}</span>
+					<input type="text"/>
 				</li>
 			</ul>
 			<hr>
+			{{shuffleEmployeeProjectsOrder()}}
 			<ul>
 				<li v-for="(value, key) in employee">
 					<span>{{key}}: {{value}}</span>
@@ -51,10 +53,17 @@
 					]
         });
 
+				function shuffleEmployeeProjectsOrder() {
+					setTimeout(() => {
+						employee.projects.sort(() => Math.random()-0.5)	
+					}, 5000);					
+				}
+
         return {
 					message,
           employee,
 					luckyNumbers,
+					shuffleEmployeeProjectsOrder,
         };
       },
     }).mount("#app");
