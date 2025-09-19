@@ -10,7 +10,10 @@
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
       <p>His salary: {{employee.salary}}</p>
 			<p v-show="employee.hasCorporateCard">
-				Spending Limit for Card: {{employee.spendingLimit}}
+				Spending Limit for Card (show): {{employee.spendingLimit}}
+			</p>
+			<p v-if="employee.hasCorporateCard">
+				Spending Limit for Card (if): {{employee.spendingLimit}}
 			</p>
     </div>
   </body>
@@ -26,7 +29,7 @@
           name: "John",
           age: 30,
           salary: 50000,
-					hasCorporateCard: true,
+					hasCorporateCard: false,
 					spendingLimit: 10000,
 					yearsWithCompany: 5,
         });
