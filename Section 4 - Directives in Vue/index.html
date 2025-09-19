@@ -11,6 +11,13 @@
 			<span v-for="(luckyNumber, index) in luckyNumbers">
 				<br/>{{luckyNumber}}
 			</span>
+			<hr/>
+			<p>Projects in Pipeline</p>
+			<ul>
+				<li v-for="(project, index) in employee.projects">
+					<span>{{index + 1}} - {{project.project}} timeline is - {{project.timeline}}</span>
+				</li>
+			</ul>
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
       <p>His salary: {{employee.salary}}</p>
 			
@@ -31,6 +38,11 @@
 					hasCorporateCard: false,
 					spendingLimit: 10000,
 					yearsWithCompany: 0,
+					projects: [
+						{ project: "Green A", timeline: "2 years"},
+						{ project: "Blue H", timeline: "9 months"},
+						{ project: "Pink G", timeline: "3 years"},
+					]
         });
 
         return {
@@ -42,3 +54,4 @@
     }).mount("#app");
   </script>
 </html>
+
