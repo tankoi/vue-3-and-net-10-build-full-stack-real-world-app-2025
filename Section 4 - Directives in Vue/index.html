@@ -9,6 +9,9 @@
 			<h1>{{message}}</h1>
       <p>Employee: {{employee.name}} is {{employee.age}} years old.</p>
       <p>His salary: {{employee.salary}}</p>
+			<p v-show="employee.hasCorporateCard">
+				Spending Limit for Card: {{employee.spendingLimit}}
+			</p>
     </div>
   </body>
   <script>
