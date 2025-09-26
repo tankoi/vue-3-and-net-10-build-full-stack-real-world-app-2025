@@ -15,7 +15,17 @@
         Hello World
       </div>
       <br /><br />
-      <span class="padding-medium" v-bind:class="{h1: true, 'bg-grey': true}">
+      <span
+        class="padding-medium"
+        v-bind:class="{h1: isMainTitle(), 'bg-green': hasGreenBackground()}"
+      >
+        Random Text
+      </span>
+      <br /><br />
+      <span
+        class="padding-medium"
+        v-bind:class="isMainTitle() ? MainTitle : ''"
+      >
         Random Text
       </span>
     </div>
@@ -27,8 +37,22 @@
     const fontSizeTemp = 60;
     createApp({
       setup() {
+        const MainTitle = {
+          h1: true,
+          "bg-grey": true,
+        };
+
+        function isMainTitle() {
+          return true;
+        }
+        function hasGreenBackground() {
+          return true;
+        }
         return {
           fontSizeTemp,
+          isMainTitle,
+          hasGreenBackground,
+          MainTitle,
         };
       },
     }).mount("#app");
