@@ -6,10 +6,10 @@
   <body>
     <div id="app">
       <div>Learn Vue</div>
-      <p>{{counter}}</p>
+      <p>{{obj.count}}</p>
       <p>{{getFullName}}</p>
-      <button v-on:click="counter++">Increment</button>
-      <button v-on:click="counter--">Decrement</button>
+      <button v-on:click="obj.count++">Increment</button>
+      <button v-on:click="obj.count--">Decrement</button>
       <br />
       First name:
       <input type="text" v-model="firstName" />
@@ -22,23 +22,21 @@
     createApp({
       setup() {
         let counter = ref(0);
+        const obj = reactive({ count: 0 });
         let firstName = ref("Ben");
         let lastName = ref("Patel");
 
-        watch(
-          () => counter.value,
-          (newValue, oldValue) => {
-            console.log(
-              "Counter value changed from, ",
-              oldValue,
-              " to ",
-              newValue
-            );
-            if (newValue === 5) {
-              alert("Counter value is 5");
-            }
+        watch(() => obj.count, (newValue, oldValue) => {
+          console.log(
+            "Counter value changed from, ",
+            oldValue,
+            " to ",
+            newValue
+          );
+          if (newValue === 5) {
+            alert("Counter value is 5");
           }
-        );
+        });
 
         const getFullName = computed((previous) => {
           console.log("previous value", previous);
@@ -51,6 +49,7 @@
           counter,
           getFullName,
           firstName,
+		  obj
         };
       },
     }).mount("#app");
