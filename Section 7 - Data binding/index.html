@@ -11,12 +11,12 @@
       <button v-on:click="counter++">Increment</button>
       <button v-on:click="counter--">Decrement</button>
       <br />
-	  First name:
+      First name:
       <input type="text" v-model="firstName" />
     </div>
   </body>
   <script>
-    const { createApp, ref, reactive, computed } = Vue;
+    const { createApp, ref, reactive, computed, watch } = Vue;
     let name = ref("Ben");
     let age = ref(20);
     createApp({
@@ -25,17 +25,32 @@
         let firstName = ref("Ben");
         let lastName = ref("Patel");
 
+        watch(
+          () => counter.value,
+          (newValue, oldValue) => {
+            console.log(
+              "Counter value changed from, ",
+              oldValue,
+              " to ",
+              newValue
+            );
+            if (newValue === 5) {
+              alert("Counter value is 5");
+            }
+          }
+        );
+
         const getFullName = computed((previous) => {
           console.log("previous value", previous);
-		  if (previous === "Ben 1 Patel") {
-			console.log("Ben Patel -> Special case");
-		  }
+          if (previous === "Ben 1 Patel") {
+            console.log("Ben Patel -> Special case");
+          }
           return firstName.value + " " + lastName.value;
         });
         return {
           counter,
           getFullName,
-		  firstName,
+          firstName,
         };
       },
     }).mount("#app");
