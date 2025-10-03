@@ -5,21 +5,14 @@
   </head>
   <body>
     <div id="app">
-      <a
-        href="https://wwww.google.com"
-        v-on:click.prevent="buttonClick('Vue is Excisting - Link', 'Hello World', $event)"
-      >Google</a>
-      <div
-        v-on:click.once="buttonClick('Vue is Excisting - Div', 'Hello World', $event)"
+      Something Exciting
+      <input type="text" v-on:keyup.enter.ctrl="pressEnter"/>
+      <button
+        v-on:click.stop="buttonClick('Vue is Excisting - Button', 'Hello World', $event)"
       >
-        Something Exciting
-        <button
-          v-on:click.stop="buttonClick('Vue is Excisting - Button', 'Hello World', $event)"
-        >
-          Click Me
-        </button>
-        <p>x: {{ x }} y: {{ y }}</p>
-      </div>
+        Click Me
+      </button>
+      <p>x: {{ x }} y: {{ y }}</p>
     </div>
   </body>
   <script>
@@ -28,6 +21,9 @@
       setup() {
         let x = ref(0);
         let y = ref(0);
+		function pressEnter() {
+			alert("Enter key was pressed.")
+		}
         function buttonClick(newMessage, newMessage2, event) {
           alert(newMessage);
           x.value = event.x;
@@ -35,6 +31,7 @@
         }
         return {
           buttonClick,
+		  pressEnter,
           x,
           y,
         };
