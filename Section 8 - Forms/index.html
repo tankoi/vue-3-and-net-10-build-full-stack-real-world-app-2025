@@ -23,15 +23,19 @@
               v-model.trim="formObj.email"
             />
           </div>
-          <div class="input-group mb-3">
+          <div class="input-group mt-3">
             <span class="input-group-text">Name</span>
             <input
               type="text"
               class="form-control"
+              v-on:blur="validateName()"
               v-model.trim="formObj.name"
             />
           </div>
-          <div class="input-group mb-3">
+          <div v-if="!formObj.isNameValid" class="text-danger">
+            Name should be at least 3 character long
+          </div>
+          <div class="input-group mt-3">
             <span class="input-group-text">Phone</span>
             <input
               type="number"
@@ -39,7 +43,7 @@
               v-model.number="formObj.phone"
             />
           </div>
-          <div class="border p-1">
+          <div class="border p-1 mt-3">
             <label class="form-label">Gender</label><br />
             <div class="form-check form-check-inline">
               <input
@@ -66,7 +70,7 @@
               <option value="female">Female</option>
             </select>
           </div>
-          <div class="input-group mb-3">
+          <div class="input-group mt-3">
             <input
               type="checkbox"
               class="form-check-input"
@@ -76,7 +80,7 @@
               >&nbsp;Subscribe to newsletter</label
             >
           </div>
-          <div class="text-center pb-3">
+          <div class="text-center pt-3">
             <button class="btn btn-secondary m-2 w-50">Submit</button>
           </div>
         </div>
@@ -95,13 +99,23 @@
           phone: "",
           subscribe: false,
           gender: "male",
+          isNameValid: true,
         });
+
+        function validateName() {
+          if (formObj.name.length < 3) {
+            formObj.isNameValid = false;
+          }
+          else {
+            formObj.isNameValid = true
+          }
+        }
 
         function handleSubmit() {
           console.log(formObj);
         }
 
-        return { formObj, handleSubmit };
+        return { formObj, handleSubmit, validateName };
       },
     }).mount("#app");
   </script>
