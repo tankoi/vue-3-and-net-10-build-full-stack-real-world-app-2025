@@ -5,19 +5,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
-
-export default {
-    
-
-    setup() {
-        // Composition API code can go here
-        const email = ref("hello@dotnetmastery.com");
-        return {
-            email
-        }
-    }
-}
+// Composition API code can go here
+const email = ref("hello@dotnetmastery.com");
 
 </script>
