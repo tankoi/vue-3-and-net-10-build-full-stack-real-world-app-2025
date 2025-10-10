@@ -1,5 +1,6 @@
 <template>
     <div>{{ message }}</div>
+    <contact-us></contact-us>
 </template>
 
 <script>
