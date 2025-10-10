@@ -1,9 +1,8 @@
 <template>
-    <div>{{ message }}</div>
-    <contact-us></contact-us>
-    <!-- local component -->
-    <button-counter></button-counter>
-    <button-counter></button-counter>
+    <div class="container">
+        <div>{{ message }}</div>
+        <contact-us></contact-us>
+    </div>
 </template>
 
 <script setup>
