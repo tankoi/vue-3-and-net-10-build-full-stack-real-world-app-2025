@@ -33,10 +33,13 @@
         <div class="border p-3 w-100 mx-auto">
           <div class="text-center">
             <h4 class="text-center">Movies List</h4>
+            <span class="text-danger" v-if="showMessage">
+              You can only add 5 movies
+            </span>
             <hr />
             <ul class="list-group">
-              <li v-for="movie in movies" class="list-group-item">
-                {{movie.title}} - {{movie.year}}
+              <li v-for="movie in getAllMovieText()" class="list-group-item">
+                {{movie}}
               </li>
             </ul>
           </div>
@@ -60,6 +63,7 @@
           title: "",
           year: "",
         });
+        let showMessage = ref(false);
 
         function addMovie() {
           if (movies.length < 5) {
@@ -69,11 +73,18 @@
           }
         }
 
+		// replace with computed property
+        function getAllMovieText() {
+          return movies.map((movie) => {
+            return `${movie.title} was released in ${movie.year}`;
+          });
+        }
+
         function removeMovie() {
           movies.pop();
         }
 
-        return { movies, newMovie, addMovie, removeMovie };
+        return { movies, newMovie, showMessage, addMovie, removeMovie, getAllMovieText };
       },
     }).mount("#app");
   </script>
