@@ -38,7 +38,7 @@
             </span>
             <hr />
             <ul class="list-group">
-              <li v-for="movie in getAllMovieText()" class="list-group-item">
+              <li v-for="movie in getAllMovieText" class="list-group-item">
                 {{movie}}
               </li>
             </ul>
@@ -73,18 +73,33 @@
           }
         }
 
-		// replace with computed property
-        function getAllMovieText() {
+        // replace with computed property
+        const getAllMovieText = computed(() => {
           return movies.map((movie) => {
             return `${movie.title} was released in ${movie.year}`;
           });
-        }
+        });
+
+        watch(movies, () => {
+          if (movies.length >= 3) {
+            showMessage.value = true;
+          } else {
+            showMessage = false;
+          }
+        });
 
         function removeMovie() {
           movies.pop();
         }
 
-        return { movies, newMovie, showMessage, addMovie, removeMovie, getAllMovieText };
+        return {
+          movies,
+          newMovie,
+          showMessage,
+          addMovie,
+          removeMovie,
+          getAllMovieText,
+        };
       },
     }).mount("#app");
   </script>
