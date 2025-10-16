@@ -6,7 +6,7 @@
             <div class="col-12" v-for="contact in contacts" :key="contact.name">
                 <contact :name="contact.name" :phone="contact.phone" :email="contact.email"
                     :ownerName="contact.ownerName" :isFavorite="contact.isFavorite"
-                    @update-favorite="contact.isFavorite = !contact.isFavorite"></contact>
+                    @update-favorite="contact.isFavorite = onUpdateFavorite($event)"></contact>
             </div>
         </div>
     </div>
@@ -37,6 +37,11 @@ const contacts = reactive([{
     email: "ben@dotnetmastery.com",
     isFavorite: false,
 }]);
+
+function onUpdateFavorite(isFavoriteFromChildComponent) {
+    return !isFavoriteFromChildComponent;
+}
+
 </script>
 
 <style></style>
