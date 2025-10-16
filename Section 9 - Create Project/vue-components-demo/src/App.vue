@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div>{{ message }}</div>
+        Contact Owner Name: <input type="text" v-model="ownerName"/>
         <div class="row">
             <div class="col-12" v-for="contact in contacts" :key="contact.name">
                 <contact :name="contact.name" :phone="contact.phone" :email="contact.email"
@@ -19,19 +20,19 @@ const ownerName = ref("DotNetMastery");
 const contacts = reactive([{
     name: "Bhrugen",
     phone: 123123123,
-    ownerName: ownerName.value,
+    ownerName: ownerName,
     isFavorite: false,
 },
 {
     name: "Bella",
     phone: 434343434343,
-    ownerName: ownerName.value,
+    ownerName: ownerName,
     isFavorite: true,
 },
 {
     name: "Charlie",
     phone: 777777777,
-    ownerName: ownerName.value,
+    ownerName: ownerName,
     email: "ben@dotnetmastery.com",
     isFavorite: false,
 }]);
