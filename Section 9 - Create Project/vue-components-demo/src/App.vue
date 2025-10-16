@@ -6,7 +6,7 @@
             <div class="col-12" v-for="contact in contacts" :key="contact.name">
                 <contact :name="contact.name" :phone="contact.phone" :email="contact.email"
                     :ownerName="contact.ownerName" :isFavorite="contact.isFavorite"
-                    @update-favorite="contact.isFavorite = onUpdateFavorite($event)"></contact>
+                    @update-favorite="contact.isFavorite = onUpdateFavorite($event, contact.phone)"></contact>
             </div>
         </div>
     </div>
@@ -38,8 +38,9 @@ const contacts = reactive([{
     isFavorite: false,
 }]);
 
-function onUpdateFavorite(oldValuesFromChildComponent) {
-    console.log(oldValuesFromChildComponent);    
+function onUpdateFavorite(oldValuesFromChildComponent, phoneNumberFromParent) {
+    console.log(oldValuesFromChildComponent);
+    console.log(phoneNumberFromParent);
     return !oldValuesFromChildComponent[0];
 }
 
