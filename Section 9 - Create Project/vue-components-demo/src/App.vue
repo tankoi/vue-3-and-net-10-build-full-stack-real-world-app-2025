@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <div>{{ message }}</div>
-        <contact-us></contact-us>
+        <contact name="Tankoi" phone="123123123"></contact>
     </div>
 </template>
 
 <script setup>
 import ButtonCounter from './components/ButtonCounter.vue';
-import ContactUs from './components/ContactUs.vue';
+import Contact from './components/Contact.vue';
 
 const message = "Hello from Composition API!";
 </script>
