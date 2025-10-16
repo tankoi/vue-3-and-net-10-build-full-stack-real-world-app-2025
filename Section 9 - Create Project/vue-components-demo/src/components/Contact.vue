@@ -13,6 +13,16 @@
 import { ref, defineProps } from 'vue';
 // Composition API code can go here
 const email = ref("hello@dotnetmastery.com");
-const props = defineProps(['name', 'phone', 'ownerName']);
+const props = defineProps({
+    name: {
+        type: String
+    },
+    phone: {
+        type: Number
+    },
+    ownerName: {
+        type: String
+    }
+});
 
 </script>
