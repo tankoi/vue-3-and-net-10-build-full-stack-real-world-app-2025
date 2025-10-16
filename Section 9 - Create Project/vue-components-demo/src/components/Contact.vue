@@ -1,15 +1,20 @@
 <template>
-    <div class="bg-info rounded p-1 m-1">
+    <div class="bg-info rounded p-1 pb-4 m-1">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <h3>Name: {{ name }}</h3>
                 <p>Email: {{ email }}</p>
                 <p>Phone: {{ phone }}</p>
-                <p class="float-end small" v-if="ownerName != ''">
-                    *this contact information belongs to {{ ownerName }}
-                </p>
+            </div>
+            <div class="col-3">
+               <button :class="[isFavorite ? 'btn btn-warning' : 'btn btn-success']">
+                {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+               </button>
             </div>
         </div>
+        <span class="float-end small" v-if="ownerName != ''">
+            *this contact information belongs to {{ ownerName }}
+        </span>
     </div>
 </template>
 
