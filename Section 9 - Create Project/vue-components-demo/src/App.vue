@@ -40,8 +40,7 @@ const contacts = reactive([{
 
 function onUpdateFavorite(oldValuesFromChildComponent, phoneNumberFromParent) {
     console.log(oldValuesFromChildComponent);
-    console.log(phoneNumberFromParent);
-    return !oldValuesFromChildComponent[0];
+    return !oldValuesFromChildComponent.isFavorite;
 }
 
 </script>
