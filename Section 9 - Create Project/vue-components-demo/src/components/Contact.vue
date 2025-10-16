@@ -10,18 +10,21 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue';
-// Composition API code can go here
-const email = ref("hello@dotnetmastery.com");
 const props = defineProps({
     name: {
-        type: String
+        type: String,
+        required: true,
     },
     phone: {
         type: Number
     },
     ownerName: {
         type: String
+    },
+    email: {
+        type: String,
+        required: false,
+        default: "-n/a-"
     }
 });
 

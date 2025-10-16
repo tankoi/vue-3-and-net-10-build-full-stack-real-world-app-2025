@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <div>{{ message }}</div>
-        <contact name="Tankoi" :phone="123123123" :ownerName="contactsOwner"></contact>
+        <contact name="Ben" :phone="123123123" :ownerName="contactsOwner"></contact>
+        <contact name="Jessica" :phone="434343434343" :ownerName="contactsOwner" email="jessica@dotnetmastery.com">
+        </contact>
     </div>
 </template>
 
