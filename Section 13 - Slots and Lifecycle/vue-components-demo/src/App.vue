@@ -7,7 +7,10 @@
       <button class="btn btn-primary text-black m-2" @click="newVersion = true">Lucky Number V2</button>
       <br>
       <br>
-      <component :is="currentComponent" />
+      <!-- component will not be remounted, so it preserves its state -->
+      <keep-alive :include="['LuckyNumber', 'LuckyNumberV2']">
+        <component :is="currentComponent" />
+      </keep-alive>
     </div>
   </div>
 </template>
