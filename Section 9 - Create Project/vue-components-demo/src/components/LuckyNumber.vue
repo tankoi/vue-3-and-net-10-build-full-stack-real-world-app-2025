@@ -15,19 +15,14 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, inject } from "vue";
 
 let luckyNumber = ref(0);
 
-const props = defineProps({
-  maxNumber: {
-    type: Number,
-    default: 10,
-  },
-});
+const maxNumber = inject("maxLuckyNumber", 10);
 
 function generateLuckyNumber() {
-  luckyNumber.value = Math.floor(Math.random() * props.maxNumber) + 1;
+  luckyNumber.value = Math.floor(Math.random() * maxNumber.value) + 1;
   console.log(luckyNumber.value);
 }
 </script>
