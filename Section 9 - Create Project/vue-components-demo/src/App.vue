@@ -1,10 +1,10 @@
 <template>
   <div class="bg-black text pt-3">
     <div class="container">
-			<div class="text-white float-end">
-      Contact Owner Name: <input type="text" v-model="ownerName" />
-			</div>
-			<br><br>
+      <div class="text-white float-end">
+        Contact Owner Name: <input type="text" v-model="ownerName" />
+      </div>
+      <br /><br />
       <add-contact></add-contact>
       <div class="row">
         <div class="col-12" v-for="contact in contacts" :key="contact.name">
@@ -51,6 +51,12 @@ const contacts = reactive([
     isFavorite: false,
   },
 ]);
+
+function onAddContact(contact) {
+  contact.ownerName = ownerName.value;
+  contact.isFavorite = false;
+  contacts.push(contact);
+}
 
 function onUpdateFavorite(oldValuesFromChildComponent, phoneNumberFromParent) {
   console.log(oldValuesFromChildComponent);
