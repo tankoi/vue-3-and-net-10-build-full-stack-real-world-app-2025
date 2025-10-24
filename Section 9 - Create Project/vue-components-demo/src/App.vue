@@ -11,7 +11,7 @@
         </div>
       </div>
       <br /><br />
-      <add-contact @add-contact="onAddContact"></add-contact>
+      <add-contact :onAddContact="onAddContact"></add-contact>
       <div class="row">
         <div class="col-12" v-for="contact in contacts" :key="contact.name">
           <contact
