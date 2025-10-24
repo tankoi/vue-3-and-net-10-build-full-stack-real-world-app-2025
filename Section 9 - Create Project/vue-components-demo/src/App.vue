@@ -5,7 +5,7 @@
         Contact Owner Name: <input type="text" v-model="ownerName" />
       </div>
       <br /><br />
-      <add-contact></add-contact>
+      <add-contact @add-contact="onAddContact"></add-contact>
       <div class="row">
         <div class="col-12" v-for="contact in contacts" :key="contact.name">
           <contact
