@@ -24,7 +24,7 @@
         </button>
       </div>
       <div class="col-4">
-        <lucky-number :maxNumber="10"></lucky-number>
+        <lucky-number :maxNumber="maxLuckyNumber"></lucky-number>
       </div>
     </div>
     <span class="float-end small" v-if="ownerName != ''">
@@ -54,6 +54,10 @@ const props = defineProps({
   },
   isFavorite: {
     type: Boolean,
+  },
+  maxLuckyNumber: {
+    type: Number,
+    default: 10,
   },
 });
 

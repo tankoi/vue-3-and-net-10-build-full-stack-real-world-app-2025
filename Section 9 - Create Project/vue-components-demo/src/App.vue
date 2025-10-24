@@ -1,8 +1,14 @@
 <template>
-  <div class="bg-black text pt-3">
+  <div class="bg-black text pt-3" :style="{ height: '100vh' }">
+    <h1 class="text-center text-success">ContactOpedia</h1>
     <div class="container">
-      <div class="text-white float-end">
-        Contact Owner Name: <input type="text" v-model="ownerName" />
+      <div class="row text-white p-2 mb-2">
+        <div class="col-6">
+          Owner Name: <input type="text" v-model="ownerName" />
+        </div>
+        <div class="col-6 text-end">
+          Max Lucky Number: <input type="number" v-model.number="maxNumber" />
+        </div>
       </div>
       <br /><br />
       <add-contact @add-contact="onAddContact"></add-contact>
@@ -14,6 +20,7 @@
             :email="contact.email"
             :ownerName="contact.ownerName"
             :isFavorite="contact.isFavorite"
+            :maxLuckyNumber="maxNumber"
             @update-favorite="
               contact.isFavorite = onUpdateFavorite($event, contact.phone)
             "
@@ -30,6 +37,7 @@ import Contact from "./components/Contact.vue";
 import AddContact from "./components/AddContact.vue";
 
 const ownerName = ref("DotNetMastery");
+const maxNumber = ref(100);
 const contacts = reactive([
   {
     name: "Bhrugen",
