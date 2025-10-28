@@ -1,4 +1,5 @@
 <template>
+  <h1>Hello Vue</h1>
   <LuckyNumberParentComponent>
     <template v-slot:default>
       <p class="pt-2">We have two version for picking lucky numbers</p>
