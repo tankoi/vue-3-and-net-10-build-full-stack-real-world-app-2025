@@ -1,10 +1,16 @@
 <template>
   <LuckyNumberParentComponent>
-    <p class="pt-2">We have two version for picking lucky numbers</p>
-    <p>Click the buttons above to switch between versions.</p>
-    <button @click="showMessage">What will we learn?</button>
-    <h4 class="text-success">{{ message }}</h4>
-    <hr>
+    <template v-slot:default>
+      <p class="pt-2">We have two version for picking lucky numbers</p>
+      <hr>
+    </template>
+    <template v-slot:moreInfo>
+      <p>Click the buttons above to switch between versions.</p>
+    </template>
+    <template v-slot:learnSlot>
+      <button @click="showMessage">What will we learn?</button>
+      <h4 class="text-success">{{ message }}</h4>
+    </template>
   </LuckyNumberParentComponent>
 </template>
 
