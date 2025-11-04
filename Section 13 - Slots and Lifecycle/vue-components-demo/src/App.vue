@@ -11,5 +11,5 @@
 import { useCounter } from "./composables/useCounter";
 import ButtonCounter from "./components/ButtonCounter.vue";
 
-const { count, increment, decrement } = useCounter();
+const { count, increment, decrement } = useCounter(100, 10);
 </script>
