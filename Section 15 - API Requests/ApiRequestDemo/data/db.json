@@ -1,0 +1,25 @@
+{
+	"destination": [
+		{
+			"id": 1,
+			"name": "Bangkok",
+			"days": 7,
+			"funFact": "Bangkok is the capital city of Thailand, known for its vibrant street life and cultural landmarks.",
+			"price": 1000
+		},
+		{
+			"id": 2,
+			"name": "Paris",
+			"days": 5,
+			"funFact": "Paris is known as the 'City of Light' and is famous for its art, fashion, and iconic landmarks like the Eiffel Tower.",
+			"price": 1500
+		},
+		{
+			"id": 3,
+			"name": "New York",
+			"days": 6,
+			"funFact": "New York City is home to the Statue of Liberty and is often called 'The Big Apple'.",
+			"price": 1200
+		}
+	]
+}
