@@ -33,11 +33,15 @@ const destinationObj = reactive({
 
 
 onMounted(() => {
+	loadDestination();
+})
+
+function loadDestination() {
 	axios.get('http://localhost:3000/destination')
 		.then(response => {
 			console.log(response.data);
 			destinationObj.destinationList = response.data;
 		})
-})
+}
 
 </script>
