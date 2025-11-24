@@ -1,6 +1,6 @@
 <template>
 	<div v-if="destinationObj.isLoading" class="d-flex justify-content-center p-4">
-		<span class="loader"></span>
+		<Loader />
 	</div>
 	<div v-else class="container p-4 bg-white">
 		<div>
@@ -58,26 +58,3 @@ function loadDestination() {
 
 
 </script>
-
-<style scoped>
-.loader {
-	width: 48px;
-	height: 48px;
-	border: 5px solid #FFF;
-	border-bottom-color: transparent;
-	border-radius: 50%;
-	display: inline-block;
-	box-sizing: border-box;
-	animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
-}
-</style>
