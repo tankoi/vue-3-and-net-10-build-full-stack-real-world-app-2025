@@ -6,13 +6,13 @@
         <br>
         <div class="row">
             <div class="col-5 offset-1">
-                <button class="btn btn-success form-control p-4">Increase</button>
+                <button class="btn btn-success form-control p-4" @click="increase">Increase</button>
             </div>
             <div class="col-5">
-                <button class="btn btn-danger form-control p-4">Decrease</button>
+                <button class="btn btn-danger form-control p-4" @click="decrease">Decrease</button>
             </div>
             <div class="col-6 offset-3 pt-2">
-                <button class="btn btn-warning form-control p-4">Random</button>
+                <button class="btn btn-warning form-control p-4" @click="random">Random</button>
             </div>
         </div>
     </div>
@@ -22,5 +22,16 @@
 import { useGameStore } from "@/store/gameStore";
 
 const gameStore = useGameStore();
+
+function increase() {
+    gameStore.score += Math.floor(Math.random() * 30) + 1;
+}
+function decrease() {
+    gameStore.score -= Math.floor(Math.random() * 10) + 1;
+}
+
+function random() {
+    Math.random() < 0.5 ? increase() : decrease();
+}
 
 </script>
