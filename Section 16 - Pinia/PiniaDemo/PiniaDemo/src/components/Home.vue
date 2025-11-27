@@ -4,7 +4,13 @@
         <h2 class="text-primary pb-3">Current Score: {{ gameStore.getScore }}</h2>
         <span class="text-primary pb-3">Max Score: {{ gameStore.maxHealth }}</span>
         <br>
-        <div class="row">
+        <span class="text-success pb-3 h3" v-if="gameStore.getScore >= gameStore.maxHealth">
+            You Won!
+        </span>
+        <span class="text-danger pb-3 h3" v-if="gameStore.getScore <= 0">
+            You Lost!
+        </span>
+        <div class="row" v-if="gameStore.getScore < gameStore.maxHealth && gameStore.getScore > 0">
             <div class="col-5 offset-1">
                 <button class="btn btn-success form-control p-4" @click="increase">Increase</button>
             </div>
@@ -14,6 +20,11 @@
             <div class="col-6 offset-3 pt-2">
                 <button class="btn btn-warning form-control p-4" @click="random">Random</button>
             </div>
+        </div>
+        <div v-else>
+            <button class="form-control btn btn-primary p-4" @click="gameStore.resetScore()">
+                Reset Game
+            </button>
         </div>
     </div>
 </template>

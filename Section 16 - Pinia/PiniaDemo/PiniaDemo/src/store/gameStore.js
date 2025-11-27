@@ -11,6 +11,9 @@ export const useGameStore = defineStore("gameStore", {
         getScore() {
             return this.score;
         },
+        getWinningScore() {
+            return this.maxHealth;
+        }
     },
     actions: {
         setNextAttack() {
@@ -22,6 +25,9 @@ export const useGameStore = defineStore("gameStore", {
             let defense = Math.floor(Math.random() * this.maxDefense) + 1;
             console.log("defense", defense);
             this.score -= defense;
+        },
+        resetScore() {
+            this.score = 50;
         }
     }
 });
