@@ -24,10 +24,10 @@ import { useGameStore } from "@/store/gameStore";
 const gameStore = useGameStore();
 
 function increase() {
-    gameStore.score += gameStore.getNextAttack;
+    gameStore.setNextAttack();
 }
 function decrease() {
-    gameStore.score -= gameStore.getNextDefense;
+    gameStore.setNextDefense();
 }
 
 function random() {
