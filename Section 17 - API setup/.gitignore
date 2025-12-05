@@ -1,0 +1,68 @@
+##################################
+## VS Code
+##################################
+
+.vscode/
+.history/
+*.code-workspace
+
+##################################
+## .NET (Core / 6 / 7 / 8 / 9 / 10)
+##################################
+
+# Build results
+bin/
+obj/
+out/
+
+# Logs
+*.log
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# ASP.NET data
+App_Data/
+
+# Generated config
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+
+# Publish artifacts
+publish/
+*.pubxml
+*.publish.xml
+
+##################################
+## OS
+##################################
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+##################################
+## Temporary files
+##################################
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+##################################
+## JetBrains (if ever used)
+##################################
+
+.idea/
+*.iml
