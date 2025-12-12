@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyApp.Controllers
+namespace MangoFusion_API.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]

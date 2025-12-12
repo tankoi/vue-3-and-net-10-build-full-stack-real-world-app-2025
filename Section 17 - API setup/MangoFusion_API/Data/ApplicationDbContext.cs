@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Identity;
+using MangoFusion_API.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyApp.Data
+namespace MangoFusion_API.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
 		public ApplicationDbContext(DbContextOptions options) : base(options)
 		{
