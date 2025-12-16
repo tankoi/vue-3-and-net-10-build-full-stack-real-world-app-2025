@@ -4,6 +4,7 @@ using MangoFusion_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangoFusion_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251216090753_InitialCreateaddMenuItemToDb")]
+    partial class InitialCreateaddMenuItemToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,58 +127,6 @@ namespace MangoFusion_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MenuItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Appetizer",
-                            Description = "A crispy and savory Indian snack filled with spiced potatoes and peas.",
-                            Image = "",
-                            Name = "Samosa",
-                            Price = 1.99,
-                            SpecialTag = "Vegetarian"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Appetizer",
-                            Description = "Chunks of paneer marinated in spices and grilled to perfection.",
-                            Image = "",
-                            Name = "Paneer Tikka",
-                            Price = 3.9900000000000002,
-                            SpecialTag = "Vegetarian"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Main Course",
-                            Description = "A flavorful curry made with tender chicken pieces simmered in a rich tomato-based sauce.",
-                            Image = "",
-                            Name = "Chicken Curry",
-                            Price = 7.9900000000000002,
-                            SpecialTag = ""
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Category = "Bread",
-                            Description = "Soft and fluffy Indian bread topped with garlic and butter.",
-                            Image = "",
-                            Name = "Garlic Naan",
-                            Price = 1.49,
-                            SpecialTag = "Vegetarian"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Category = "Beverage",
-                            Description = "A refreshing yogurt-based drink blended with ripe mangoes and a hint of cardamom.",
-                            Image = "",
-                            Name = "Mango Lassi",
-                            Price = 2.9900000000000002,
-                            SpecialTag = "Vegetarian"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
