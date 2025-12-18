@@ -2,6 +2,7 @@ using MangoFusion_API.Data;
 using MangoFusion_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using MangoFusion_API.Models.Dto;
 
 namespace MangoFusion_API.Controllers
 {
@@ -12,11 +13,13 @@ namespace MangoFusion_API.Controllers
 
         private readonly ApplicationDbContext _db;
         private readonly ApiResponse _response;
+        private readonly IWebHostEnvironment _env;
 
-        public MenuItemController(ApplicationDbContext db)
+        public MenuItemController(ApplicationDbContext db, IWebHostEnvironment env)
         {
             _db = db;
             _response = new ApiResponse();
+            _env = env;
         }
 
         [HttpGet]
@@ -40,6 +43,71 @@ namespace MangoFusion_API.Controllers
             _response.Result = menuItem;
             _response.StatusCode = HttpStatusCode.OK;
             return Ok(_response);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> CreateMenuItem([FromForm] MenuItemCreateDTO menuItemCreateDTO)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (menuItemCreateDTO.File == null || menuItemCreateDTO.File.Length == 0)
+                    {
+                        _response.IsSuccess = false;
+                        _response.StatusCode = HttpStatusCode.BadRequest;
+                        _response.ErrorMessages = ["File is required."];
+                        return BadRequest(_response);
+                    }
+                    var imagePath = Path.Combine(_env.WebRootPath, "images");
+                    
+                    if (!Directory.Exists(imagePath))
+                    {
+                        Directory.CreateDirectory(imagePath);
+                    }
+
+                    var filePath = Path.Combine(imagePath, menuItemCreateDTO.File.FileName);
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    // uploading the image
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await menuItemCreateDTO.File.CopyToAsync(stream);
+                    }
+
+                    MenuItem menuItem = new()
+                    {
+                        Name = menuItemCreateDTO.Name,
+                        Description = menuItemCreateDTO.Description,
+                        Category = menuItemCreateDTO.Category,
+                        SpecialTag = menuItemCreateDTO.SpecialTag,
+                        Price = menuItemCreateDTO.Price,
+                        Image = @"images/" + menuItemCreateDTO.File.FileName
+                    };
+
+                    _db.MenuItems.Add(menuItem);
+                    await _db.SaveChangesAsync();
+
+                    _response.Result = menuItemCreateDTO;
+                    _response.StatusCode = HttpStatusCode.Created;
+                    return CreatedAtRoute("GetMenuItem", new { id = menuItem.Id }, _response);
+                }
+                else
+                {
+                    _response.IsSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = [ex.ToString()];
+                return _response;
+            }
+
+            return BadRequest(_response);
         }
     }
 }
