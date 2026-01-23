@@ -186,5 +186,53 @@ namespace MangoFusion_API.Controllers
 
             return BadRequest(_response);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteMenuItem(int id)
+        {
+	        try
+	        {
+		        if (ModelState.IsValid)
+		        {
+
+			        if (id == 0)
+			        {
+				        _response.StatusCode = HttpStatusCode.BadRequest;
+				        _response.IsSuccess = false;
+				        return BadRequest(_response);
+			        }
+
+			        MenuItem? menuItem = await _db.MenuItems.FirstOrDefaultAsync(u => u.Id == id);
+			        if (menuItem == null)
+			        {
+				        _response.StatusCode = HttpStatusCode.NotFound;
+				        _response.IsSuccess = false;
+				        return NotFound(_response);
+			        }
+
+			        var filePath = Path.Combine(_env.WebRootPath, menuItem.Image);
+			        if (System.IO.File.Exists(filePath))
+			        {
+				        System.IO.File.Delete(filePath);
+			        }
+
+			        _db.MenuItems.Remove(menuItem);
+			        await _db.SaveChangesAsync();
+
+			        _response.StatusCode = HttpStatusCode.NoContent;
+			        return Ok(_response);
+		        }
+
+		        _response.IsSuccess = false;
+	        }
+	        catch (Exception ex)
+	        {
+		        _response.IsSuccess = false;
+		        _response.ErrorMessages = [ex.ToString()];
+		        return BadRequest(_response);
+	        }
+	        
+	        return BadRequest(_response);
+        }
     }
 }
