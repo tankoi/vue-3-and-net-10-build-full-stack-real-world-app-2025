@@ -1,11 +1,14 @@
 ﻿using System.Net;
 using MangoFusion_API.Models;
 using MangoFusion_API.Models.Dto;
+using MangoFusion_API.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangoFusion_API.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class AuthController : Controller
 {
 	private readonly ApiResponse _response;
@@ -21,7 +24,7 @@ public class AuthController : Controller
 		_roleManager = roleManager;
 	}
 
-	[HttpPost]
+	[HttpPost("register")]
 	public async Task<IActionResult> Register([FromBody] RegisterRequestDTO model)
 	{
 		if (ModelState.IsValid)
@@ -38,6 +41,21 @@ public class AuthController : Controller
 
 			if (result.Succeeded)
 			{
+				if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
+				{
+					await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
+					await _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer));
+				}
+				
+				if (model.Role != null && model.Role.Equals(SD.Role_Admin, StringComparison.CurrentCultureIgnoreCase))
+				{
+					await _userManager.AddToRoleAsync(newUser, SD.Role_Admin);
+				}
+				else
+				{
+					await _userManager.AddToRoleAsync(newUser, SD.Role_Customer);
+				}
+				
 				_response.StatusCode = HttpStatusCode.OK;
 				_response.IsSuccess = true;
 				return Ok(_response);
