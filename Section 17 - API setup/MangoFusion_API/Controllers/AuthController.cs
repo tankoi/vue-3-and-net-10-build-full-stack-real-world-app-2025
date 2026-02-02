@@ -1,9 +1,13 @@
-﻿using System.Net;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Security.Claims;
+using System.Text;
 using MangoFusion_API.Models;
 using MangoFusion_API.Models.Dto;
 using MangoFusion_API.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MangoFusion_API.Controllers;
 
@@ -15,7 +19,7 @@ public class AuthController : Controller
 	private readonly UserManager<ApplicationUser> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
 	private readonly string secretKey;
-	
+
 	public AuthController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
 	{
 		secretKey = configuration.GetValue<string>("ApiSettings:Secret") ?? string.Empty;
@@ -36,8 +40,8 @@ public class AuthController : Controller
 				Name = model.Name,
 				NormalizedEmail = model.Email.ToUpper(),
 			};
-			
-			var result =  await _userManager.CreateAsync(newUser, model.Password);
+
+			var result = await _userManager.CreateAsync(newUser, model.Password);
 
 			if (result.Succeeded)
 			{
@@ -46,7 +50,7 @@ public class AuthController : Controller
 					await _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin));
 					await _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer));
 				}
-				
+
 				if (model.Role != null && model.Role.Equals(SD.Role_Admin, StringComparison.CurrentCultureIgnoreCase))
 				{
 					await _userManager.AddToRoleAsync(newUser, SD.Role_Admin);
@@ -55,7 +59,7 @@ public class AuthController : Controller
 				{
 					await _userManager.AddToRoleAsync(newUser, SD.Role_Customer);
 				}
-				
+
 				_response.StatusCode = HttpStatusCode.OK;
 				_response.IsSuccess = true;
 				return Ok(_response);
@@ -68,12 +72,82 @@ public class AuthController : Controller
 				{
 					_response.ErrorMessages.Add(error.Description);
 				}
+
 				_response.StatusCode = HttpStatusCode.BadRequest;
 				_response.IsSuccess = false;
 				return BadRequest(_response);
 			}
 		}
-		else 
+
+		_response.StatusCode = HttpStatusCode.BadRequest;
+		_response.IsSuccess = false;
+		foreach (var error in ModelState.Values)
+		{
+			foreach (var item in error.Errors)
+			{
+				_response.ErrorMessages.Add(item.ErrorMessage);
+			}
+		}
+
+		return BadRequest(_response);
+	}
+
+	[HttpPost("login")]
+	public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
+	{
+		if (ModelState.IsValid)
+		{
+			var userFromDb = await _userManager.FindByEmailAsync(model.Email);
+
+			if (userFromDb != null)
+			{
+				bool isValid = await _userManager.CheckPasswordAsync(userFromDb, model.Password);
+				if (!isValid)
+				{
+					_response.Result = new LoginResponseDTO();
+					_response.StatusCode = HttpStatusCode.BadRequest;
+					_response.IsSuccess = false;
+					_response.ErrorMessages.Add("Invalid Credentials");
+					return BadRequest(_response);
+				}
+
+				var tokenHandler = new JwtSecurityTokenHandler();
+				byte[] key = Encoding.UTF8.GetBytes(secretKey);
+
+				var tokenDescriptor = new SecurityTokenDescriptor
+				{
+					Subject = new ClaimsIdentity([
+						new("fullname", userFromDb.Name), 
+						new("id", userFromDb.Id), 
+						new(ClaimTypes.Email, userFromDb.Email!.ToString()),
+						new (ClaimTypes.Role, (await _userManager.GetRolesAsync(userFromDb)).FirstOrDefault()!)
+					]),
+					Expires = DateTime.UtcNow.AddDays(7),
+					SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+				};
+				
+				var token = tokenHandler.CreateToken(tokenDescriptor);
+				
+				LoginResponseDTO loginResponse = new()
+				{
+					Email = userFromDb.Email!,
+					Token = tokenHandler.WriteToken(token),
+					Role = (await _userManager.GetRolesAsync(userFromDb)).FirstOrDefault()!
+				};
+				
+				_response.Result = loginResponse;
+				_response.StatusCode = HttpStatusCode.OK;
+				_response.IsSuccess = true;
+				return Ok(_response);
+			}
+			
+			_response.Result = new LoginResponseDTO();
+			_response.StatusCode = HttpStatusCode.BadRequest;
+			_response.IsSuccess = false;
+			_response.ErrorMessages.Add("Invalid Credentials");
+			return BadRequest(_response);
+		}
+		else
 		{
 			_response.StatusCode = HttpStatusCode.BadRequest;
 			_response.IsSuccess = false;
@@ -84,6 +158,7 @@ public class AuthController : Controller
 					_response.ErrorMessages.Add(item.ErrorMessage);
 				}
 			}
+
 			return BadRequest(_response);
 		}
 	}
